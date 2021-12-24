@@ -20,6 +20,15 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  role: {
+          type: String,
+          enum : ['user','admin'],
+          default: 'user'
+      },
+  country: {
+    type: String,
+    required: true,
+  }
 });
 
 /**

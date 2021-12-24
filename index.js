@@ -3,9 +3,11 @@ const app = express();
 const mongoose = require("mongoose");
 const dbConfig = require("./config/db.config");
 
+
 const auth = require("./middlewares/auth.js");
 const errors = require("./middlewares/errors.js");
 const unless = require("express-unless");
+
 
 // connect to mongodb
 
@@ -32,6 +34,7 @@ mongoose
     }
   );
 
+
 // middleware for authenticating token submitted with requests
 /**
  * Conditionally skip a middleware when a condition is met.
@@ -42,21 +45,23 @@ app.use(
     path: [
       { url: "/users/login", methods: ["POST"] },
       { url: "/users/register", methods: ["POST"] },
-      { url: "/users/otpLogin", methods: ["POST"] },
-      { url: "/users/verifyOTP", methods: ["POST"] },
     ],
   })
 );
 
 app.use(express.json());
 
-// initialize routes
+// initialize routes 
 app.use("/users", require("./routes/users.routes"));
-
+app.use("/artis", require("./routes/artikel"));
+app.use("/webinar", require("./routes/webinar"));
+app.use("/artikel", require("./routes/artikel"));
+app.use("/comment", require("./routes/comment"));
+app.use("/category", require("./routes/category"));
 // middleware for error responses
 app.use(errors.errorHandler);
 
 // listen for requests
-app.listen(process.env.port || 4000, function () {
+app.listen(process.env.port || 3000, function () {
   console.log("Ready to Go!");
 });
